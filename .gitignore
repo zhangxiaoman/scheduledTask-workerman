@@ -2,3 +2,5 @@ logs
 cache
 cronWorker/Applications/Cron/*.log
 cronWorker/Applications/Cron/*.pid
+cronWorker/composer.lock
+cronWorker/vendor
