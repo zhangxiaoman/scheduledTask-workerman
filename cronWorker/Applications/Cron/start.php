@@ -10,7 +10,7 @@
 
 use Workerman\Worker;
 use \Workerman\Lib\Timer;
-require_once __DIR__ . '/../../Workerman/Autoloader.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 //系统环境
 define('APP_ENV',   ini_get('yaf.environ'));
