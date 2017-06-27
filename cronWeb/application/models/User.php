@@ -12,6 +12,15 @@
 		 $this->_db = $this->linkdb('timer');
 	 }
 
+     /**
+      * 返回单例对象.
+      *
+      * @return UserModel
+      */
+     static public function getInstance() {
+         return parent::getInstance();
+     }
+
 	 function login($username, $password){
         $userInfo = $this->_db->select('u_id, u_username, u_realname,u_role')->from('t_user')
                     ->where('u_username',$username)

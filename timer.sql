@@ -803,5 +803,5 @@ CREATE TABLE `t_user` (
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES ('1001', 'mlkom', 'mlkom', 'cc8a15d31a04d375382b2f2b32169193', '13509351822', '262756784@qq.com', '2', '1', '2016-09-19 11:40:52');
-INSERT INTO `t_user` VALUES ('1041', 'moxiaobai', '莫小白', '2d2d95373ee0ecda657ad8575a110aab', '13509351822', 'xiaogangren@comylife', '1', '1', '2016-09-19 16:15:06');
+INSERT INTO `t_user` VALUES ('1001', ' admin', 'admin', '2bb079b78672d94de23af4d9bb5837a4', '13688361753', '540688648@qq.com', '2', '1', '2016-09-19 11:40:52');
+INSERT INTO `t_user` VALUES ('1041', 'xiaoman', '章小慢', '2bb079b78672d94de23af4d9bb5837a4', '13688361753', 'xiaoman@wulibb.com', '1', '1', '2016-09-19 16:15:06');
