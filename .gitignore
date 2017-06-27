@@ -1,2 +1,4 @@
 logs
 cache
+cronWorker/Applications/Cron/*.log
+cronWorker/Applications/Cron/*.pid

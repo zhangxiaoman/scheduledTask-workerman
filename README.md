@@ -6,17 +6,62 @@
  2. web在线管理计划任务，主要功能管理计划任务列表，添加用户，查看任务日志，任务异常报警提醒；
  3. 使用workerman的定时器执行计划任务：任务循环执行，只执行一次，每天执行一次三种模式，最小 间隔时间精确到1秒。
 
+**目录结构**
+
+```
+├── README.md
+├── cronCli         // YAF cli 模式
+│   ├── README.md
+│   ├── application
+│   ├── config
+│   └── request.php
+├── cronWeb         // YAF web 
+│   ├── application
+│   ├── cache
+│   ├── config
+│   ├── index.php
+│   └── public
+├── cronWorker      // 利用 workerman timer 实现 cron
+│   ├── Applications
+│   ├── README.md
+│   ├── Workerman
+│   └── start.php
+├── doc
+│   ├── add-task.png
+│   ├── alarm-log.png
+│   ├── task-list.png
+│   ├── user-manage.png
+│   └── workerman-console.png
+├── phpCli          // 普通 php 文件
+│   └── User.php
+└── timer.sql       // SQL.
+```
+
+## 实现思路
+
+1. cronWeb 在启动/停止任务通过 socket 跟 cronWorker 通信, 告诉 cronWorker 新增/删除定时器.
+2. cronWorker onMessage 接收 cronWeb 消息处理定时器
+3. `Cron->execute` 判断任务的类型(phpcli, yafclit, curl) 通过不同方式调用
+4. 执行完成判断任务结束时间, 删除定时器, 更改任务状态(web 端呈现任务状态)
+
 ## cronCli 基于php yaf开发的php cli命令行程序
 **示例程序:**
+
 ``` php
-执行Pay 模块下面的Message控制器的List方法
-php request.php request_uri="/pay/message/list/"
+// 执行 User 控制器的 List 方法
+php request.php request_uri="/user/list"
+
+// result
+{"code":1,"info":2}
 ```
 
 ## phpCli 普通模式php cli命令行程序
 **示例程序:**
 ``` php
 php User.php
+
+// result
+{"code":1,"info":{"uid":1024,"age":100,"username":"moxiaobai","realname":"莫小白"}}
 ```
 
 ## cronWeb 基于php yaf开发的web管理工具
@@ -40,7 +85,10 @@ php User.php
 php start.php start -d
 ```
 
-**注意事项：需要修改php.ini， 找到disable_function,去除exec和stream_socket_server方法**
+**注意事项：**
+
+- 需要修改php.ini， 找到disable_function,去除exec和stream_socket_server方法.
+- 需要先启动 cronWorker, 否则 cronWeb 中启动任务跟 cronWorker 通信会失败.
 
 ![image](https://github.com/moxiaobai/scheduledTask-workerman/blob/master/doc/workerman-console.png)
 
