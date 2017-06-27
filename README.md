@@ -41,7 +41,7 @@
 
 1. cronWeb 在启动/停止任务通过 socket 跟 cronWorker 通信, 告诉 cronWorker 新增/删除定时器.
 2. cronWorker onMessage 接收 cronWeb 消息处理定时器
-3. `Cron->execute` 判断任务的类型(phpcli, yafclit, curl) 通过不同方式调用
+3. `Cron->execute` 判断任务的类型(phpcli, yafcli, curl) 通过不同方式调用
 4. 执行完成判断任务结束时间, 删除定时器, 更改任务状态(web 端呈现任务状态)
 
 ## cronCli 基于php yaf开发的php cli命令行程序
