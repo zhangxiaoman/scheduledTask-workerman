@@ -53,7 +53,6 @@ $task->onWorkerStart = function($task)
     //读出符合条件的任务
     $task     = new Task();
     $taskList = $task->getTaskList();
-
     if($taskList) {
         foreach($taskList as $val) {
             Execute::task($val);
@@ -69,8 +68,6 @@ $task->onMessage = function($connection, $data)
 {
 
     //@todo 验证数据的完整性
-
-
     $data = trim($data);
     $data = json_decode($data, true);
 

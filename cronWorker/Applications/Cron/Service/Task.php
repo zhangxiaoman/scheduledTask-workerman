@@ -23,7 +23,7 @@ class Task {
     public  function getTaskList() {
         $now = time();
 
-        $rows =  $this->_db->select('c_id,c_title,c_type,c_content,c_interval,c_start_time,c_end_time,c_execute_time,d_id,c_persistent,c_alarm,c_timer_id')
+        $rows =  $this->_db->select('c_id,c_title,c_type,c_content,c_interval,c_start_time,c_end_time,c_execute_time,d_id,c_persistent,c_alarm,c_timer_id,c_crontab_expression')
                         ->from('t_cron')
                         ->where("c_status = 1")
                         ->where("'{$now}' <= c_end_time")
@@ -41,7 +41,7 @@ class Task {
      * @return mixed
      */
     public function getTaskById($id) {
-        return $this->_db->select('c_id,c_title,c_type,c_content,c_interval,c_start_time,c_end_time,c_execute_time,d_id,c_persistent,c_alarm,c_timer_id')
+        return $this->_db->select('c_id,c_title,c_type,c_content,c_interval,c_start_time,c_end_time,c_execute_time,d_id,c_persistent,c_alarm,c_timer_id,c_crontab_expression')
                         ->from('t_cron')
                         ->where("c_status = 1")
                         ->where("c_id", $id)

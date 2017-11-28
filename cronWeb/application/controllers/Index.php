@@ -123,6 +123,7 @@ class IndexController extends Yaf_Controller_Abstract
         $interval   = isset($_POST['interval']) ? intval($_POST['interval']) : '';
         $executeTime     = isset($_POST['executeTime']) ? $_POST['executeTime'] : '';
         $executeDateTime = isset($_POST['executeDateTime']) ? $_POST['executeDateTime'] : '';
+        $crontabExpress = isset($_POST['crontabExpress']) ? $_POST['crontabExpress'] : '';
 
         if(!$alarm) {
             Helper_Json::formJson('请填写任务每天报警次数');
@@ -206,6 +207,14 @@ class IndexController extends Yaf_Controller_Abstract
                 $data['c_end_time']   = strtotime("+5 minutes", strtotime($executeDateTime));
                 $data['c_execute_time'] = strtotime($executeDateTime);
                 break;
+            case 4:
+                if (empty($crontabExpress)) {
+                    Helper_Json::formJson('请填写cron tab express');
+                }
+                $data['c_interval'] = 0.9;
+                $data['c_end_time']   = strtotime("2099-12-31");
+                $data['c_crontab_expression'] = $crontabExpress;
+                break;
         }
 
         if ( $id > 0) {
@@ -285,7 +294,10 @@ class IndexController extends Yaf_Controller_Abstract
 
         // 与服务端建立socket连接
         try {
-            $client = stream_socket_client(SERVER_HOST, $errno, $errstr, 30);
+            $client = @stream_socket_client(SERVER_HOST, $errno, $errstr, 30);
+            if (empty($client)) {
+                return array('code'=>101, 'msg'=>'与服务器通讯失败');
+            }
         } catch(Exception $e) {
             return array('code'=>101, 'msg'=>'与服务器通讯失败');
         }

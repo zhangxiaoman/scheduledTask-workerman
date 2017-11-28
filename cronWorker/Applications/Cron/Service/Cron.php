@@ -25,6 +25,7 @@ class Cron {
         $starTime     = $data['c_start_time'];    //任务开始执行时间
         $endTime      = $data['c_end_time'];      //任务结束时间
         $executeTime  = $data['c_execute_time'];  //程序执行时间， persistent为2，3有用
+        $crontabExpression   = $data['c_crontab_expression'];    //linux crontab 表达式
         $persistent   = $data['c_persistent'];    //程序执行类型
         $uid          = $data['d_id'];            //程序负责人
         $alarmNumber  = $data['c_alarm'];         //每天报警次数
@@ -42,6 +43,19 @@ class Cron {
             //只执行一次
             if($persistent == 3) {
                 if(date('Y-m-d H:i') != date('Y-m-d H:i', $executeTime) ) {
+                    return true;
+                }
+            }
+            // linux crontab task, check 时间.
+            if ($persistent == 4) {
+                try {
+                    $seconds = \ParseCrontab\Crontab::parse($crontabExpression, 0);
+                    $currsec = date("s");
+                    if (empty($seconds) || !in_array($currsec, array_keys($seconds))) {
+                        echo "crontab express: {$crontabExpression} | now : ".date("Y-m-d H:i:s")." filter \n";
+                        return true;
+                    }
+                } catch(\Exception $e) {
                     return true;
                 }
             }

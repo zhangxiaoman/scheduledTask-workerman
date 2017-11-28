@@ -1,5 +1,6 @@
 {
     "require": {
-        "workerman/workerman": " >=3.3.0"
+        "workerman/workerman": " >=3.3.0",
+        "xiaoman/parse-crontab": "^0.1.2"
     }
 }

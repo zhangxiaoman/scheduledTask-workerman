@@ -108,6 +108,7 @@
             <li class="active"><a href="#tab1" data-toggle="tab" type="1">循环执行</a></li>
             <li><a href="#tab2" data-toggle="tab" type="2">每天执行一次</a></li>
             <li><a href="#tab3" data-toggle="tab" type="3">只执行一次</a></li>
+            <li><a href="#tab4" data-toggle="tab" type="4">crontab</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">
@@ -161,6 +162,15 @@
                     <label class="control-label">任务执行时间</label>
                     <div class="controls">
                         <input id="executeDateTime" name="executeDateTime" size="16" type="text" class="span2" placeholder="任务执行时间">
+                        <span class="help-inline" style="color:red;">*</span>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="tab4">
+                <div class="control-group">
+                    <label class="control-label">Linux CronTab</label>
+                    <div class="controls">
+                        <input id="crontabExpress" name="crontabExpress" size="16" type="text" class="span2" placeholder="crontab express">
                         <span class="help-inline" style="color:red;">*</span>
                     </div>
                 </div>
