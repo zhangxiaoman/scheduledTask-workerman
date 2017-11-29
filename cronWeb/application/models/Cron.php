@@ -26,7 +26,7 @@ class CronModel extends BaseModel {
     public function getCronList($where=array(), $pagination=array()) {
         $row = $this->_setWhereSQL($where)
             ->_setPaginationSQL($pagination)
-            ->_db->select('c_id,d_id,c_title,c_type,c_content,c_interval,c_start_time,c_end_time,c_execute_time,c_persistent,c_run_time,c_stop_time,c_status,c_state,c_update_time,c_addtime')
+            ->_db->select('c_id,d_id,c_title,c_type,c_content,c_interval,c_start_time,c_end_time,c_execute_time,c_persistent,c_run_time,c_stop_time,c_status,c_state,c_update_time,c_addtime, c_crontab_expression')
             ->from('t_cron')
             ->order( 'c_id', 'DESC')
             ->fetchAll();
@@ -54,7 +54,7 @@ class CronModel extends BaseModel {
      * @return mixed
      */
     public function getCronById($id) {
-        return $this->_db->select("c_id,c_title,c_type,c_content,c_interval,c_start_time,c_end_time,c_execute_time,c_persistent,c_status,c_state,c_alarm,d_id")->from('t_cron')->where('c_id', $id)->fetchOne();
+        return $this->_db->select("c_id,c_title,c_type,c_content,c_interval,c_start_time,c_end_time,c_execute_time,c_persistent,c_status,c_state,c_alarm,d_id, c_crontab_expression")->from('t_cron')->where('c_id', $id)->fetchOne();
     }
 
     /**

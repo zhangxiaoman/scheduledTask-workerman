@@ -55,9 +55,12 @@
             <span class="label label-info">每天执行一次</span><br />
             每天执行时间：{{$row.c_execute_time|date_format:"%H:%M"}}<br />
             开始时间: {{$row.c_start_time|date_format:"%Y-%m-%d %H:%M:%S"}} - 结束时间: {{$row.c_end_time|date_format:"%Y-%m-%d %H:%M:%S"}}<br />
-            {{else}}
+            {{else if $row.c_persistent == 3}}
             <span class="label label-important">只执行一次</span><br />
             任务执行时间：{{$row.c_execute_time|date_format:"%Y-%m-%d %H:%M"}}
+            {{else}}
+            <span class="label label-important">linux crontab expression</span><br />
+            表达式: <span style="color: red">{{$row.c_crontab_expression}}</span>
             {{/if}}
         </td>
         <td>

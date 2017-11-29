@@ -211,7 +211,7 @@ class IndexController extends Yaf_Controller_Abstract
                 if (empty($crontabExpress)) {
                     Helper_Json::formJson('请填写cron tab express');
                 }
-                $data['c_interval'] = 0.9;
+                $data['c_interval'] = 1;
                 $data['c_end_time']   = strtotime("2099-12-31");
                 $data['c_crontab_expression'] = $crontabExpress;
                 break;
