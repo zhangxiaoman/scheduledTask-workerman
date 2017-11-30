@@ -1,10 +1,22 @@
 # scheduledTask-workerman
-**基于workerman和yaf开发的计划任务系统。web端管理计划任务，查看任务日志，异常报警。 如果计划任务很少，直接用linux的crontab即可。**
+
+**基于workerman和yaf开发的计划任务系统。**
+**web端管理计划任务，查看任务日志，异常报警。**
+**如果计划任务很少，直接用linux的crontab即可。**
 
 **功能列表:**
- 1. yaf cli命令行模式执行php程序（也支持curl模式）；
- 2. web在线管理计划任务，主要功能管理计划任务列表，添加用户，查看任务日志，任务异常报警提醒；
- 3. 使用workerman的定时器执行计划任务：任务循环执行，只执行一次，每天执行一次三种模式，最小 间隔时间精确到1秒。
+
+ 1. yaf cli 命令行模式执行php程序（也支持curl模式）；
+ 2. web在线管理计划任务，主要功能
+    1. 管理计划任务列表，
+    2. 添加用户，
+    3. 查看任务日志，
+    4. 任务异常报警提醒；
+ 3. 使用workerman的定时器执行计划任务：
+    1. 任务循环执行
+    2. 只执行一次
+    3. 每天执行一次三种魔术
+    4. linux crontab 格式(支持到秒)
 
 **目录结构**
 
@@ -41,8 +53,13 @@
 
 1. cronWeb 在启动/停止任务通过 socket 跟 cronWorker 通信, 告诉 cronWorker 新增/删除定时器.
 2. cronWorker onMessage 接收 cronWeb 消息处理定时器
-3. `Cron->execute` 判断任务的类型(phpcli, yafcli, curl) 通过不同方式调用
+3. `Cron->execute` 判断任务的类型(phpcli, yafcli, curl) 通过不同方式执行
 4. 执行完成判断任务结束时间, 删除定时器, 更改任务状态(web 端呈现任务状态)
+
+## 解析 linux crontab 
+
+**[ParseCrontab](https://github.com/zhangxiaoman/ParseCrontab)**
+
 
 ## cronCli 基于php yaf开发的php cli命令行程序
 **示例程序:**
@@ -67,7 +84,7 @@ php User.php
 ## cronWeb 基于php yaf开发的web管理工具
 
 **计划任务列表**
-![image](https://github.com/moxiaobai/scheduledTask-workerman/blob/master/doc/task-list.png)
+![image](https://github.com/zhangxiaoman/scheduledTask-workerman/blob/master/doc/task-list.png)
 
 **添加计划任务**
 ![image](https://github.com/moxiaobai/scheduledTask-workerman/blob/master/doc/add-task.png)
@@ -90,5 +107,7 @@ php start.php start -d
 - 需要修改php.ini， 找到disable_function,去除exec和stream_socket_server方法.
 - 需要先启动 cronWorker, 否则 cronWeb 中启动任务跟 cronWorker 通信会失败.
 
-![image](https://github.com/moxiaobai/scheduledTask-workerman/blob/master/doc/workerman-console.png)
+![](https://github.com/moxiaobai/scheduledTask-workerman/blob/master/doc/workerman-console.png)
+
+
 
